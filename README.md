@@ -409,6 +409,7 @@ Angle estimation wont work with this model, this is because the model is assumin
 # References
 YAMNet
 - [Sound Classification](https://www.tensorflow.org/hub/tutorials/yamnet)
+
 Not super helpful but cool
 - [Acoustic Localization](https://opensoundscape.org/en/latest/tutorials/acoustic_localization.html)
   - Could not get the localization package within opensoundscape to import
