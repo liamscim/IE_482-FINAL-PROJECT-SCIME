@@ -93,7 +93,7 @@ Sample output:
 You can see here I was blowing into the left mic and therefore the left mic is the USB mic in index 1.
 
 ## Code 2 - Sound Recording
-- Run the following code to record ~ 1 sec sound clip from each mic at the same time
+Run the following code to record ~ 1 sec sound clip from each mic at the same time:
 ```
 #Record sound clip from both mics at the same time
 
@@ -141,6 +141,7 @@ print("Saved mic_left.wav and mic_right.wav")
 - This code is used to ensure that the sound clips from each mic are in line
   - This is very important since we are using TDOA from the peak amplitudes to determine which mic is closer and the distance from the sound source its critical that the records are aligned exactly
 - Record a single clap from the middle of the mics (code 2), the closer to directly center the better
+Then run this code:
 ```
 #Determine correction factor
 #To do so clap directly between the mics then run this chunk of code
@@ -238,7 +239,7 @@ Sample output:
 
 ![Code 4a](https://github.com/user-attachments/assets/bc54b413-e109-4e2c-9f24-62c74f0a4458)
 
-The following will plot the amplitudes from each mic overlayed
+The following will plot the amplitudes from each mic overlayed:
 ```
 import matplotlib.pyplot as plt
 import numpy as np
