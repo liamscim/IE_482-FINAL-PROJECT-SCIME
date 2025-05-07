@@ -409,6 +409,7 @@ Angle estimation wont work with this model, this is because the model is assumin
 # References
 Not super helpful but cool
 - [Acoustic Localization](https://opensoundscape.org/en/latest/tutorials/acoustic_localization.html)
+  - Could not get the localization package within opensoundscape to import
 # Future Work
 - Ideally I would like the code to be able to identify a rotation factor and distance that way we could do something like track the sound
 - Recording that is always updating the location of the sound would be cool, would make this more practical
