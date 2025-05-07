@@ -37,17 +37,21 @@ pip install pyaudio
 ```
 - For direct audio recording
 
-- The rest is just python commands that can be ran within a jupyter notebook
+The rest is just python commands that can be ran within a jupyter notebook
 - This code will be highlighted in the next section
 # How to Run the Code
 ## Code 1 - Index Verification
-- Run this code to see what indices the USB mics are in
+Run this code to see what indices the USB mics are in:
 ```
 import sounddevice as sd
 
 print(sd.query_devices())
 ```
-- This is just a verification to determine which mic is in which index
+Sample output:
+
+![Code 1 output](https://github.com/user-attachments/assets/c518e951-7cab-46b7-aef5-e4a146849350)
+
+Next run this code and speak/blow into one mic only, this was my way of verifying the index of the mics:
 ```
 #Speak into one mic only this will help identify which mic is which
 #LEFT MIC HAS WHITE DOT
@@ -81,6 +85,11 @@ for mic_index in [1, 2]:  # Replace with actual device indices
 p.terminate()
 ```
 - Run this and speak directly into one mic only, the mic you were speaking into should have the louder amplitude which will allow you to verify if the indeices for the mics are correct
+
+Sample output:
+
+![Code 1b output](https://github.com/user-attachments/assets/276ce6dc-2009-4b14-945a-7bdb0e3638fe)
+You can see here I was blowing into the left mic and therefore the left mic is the USB mic in index 1.
 
 ## Code 2 - Sound Recording
 - Run the following code to record ~ 1 sec sound clip from each mic at the same time
@@ -169,6 +178,10 @@ print(f"Estimated correction factor (manual_offset_samples) = {offset} samples")
   - Mine correction factor was consistently around ~257 meaning the left mic was lagging
 - `NOTE` Even when mics are flipped the left seemed to still be delayed. This delay could be from the code itself or even my laptop but it doesn't seem to be due to the mics themselves.
 
+Sample output:
+
+![Code 3 output](https://github.com/user-attachments/assets/9de1b805-3fb5-4521-aa71-c398a506fc34)
+
 ## Code 4 - Plot from each mic
 ```
 import matplotlib.pyplot as plt
@@ -220,6 +233,48 @@ print(f"Right Peak Index: {right_peak_corr}")
 - The following code will plot the amplitude from each mic on two seperate plots
 - Make sure the manual_offset_samples is updated with the proper correction factor, use 0 if you dont want a correction factor
 - Although the correction factor is something you will manually change you still need to run that code (code 3) for the plots to be updated
+Sample output:
+
+![Code 4a](https://github.com/user-attachments/assets/bc54b413-e109-4e2c-9f24-62c74f0a4458)
+
+The following will plot the amplitudes from each mic overlayed
+```
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Ensure left_corr and right_corr are same length
+min_len = min(len(left_corr), len(right_corr))
+left_trimmed = left_corr[:min_len]
+right_trimmed = right_corr[:min_len]
+
+# Create x-axis
+x = np.arange(min_len)
+
+# Define overlap threshold (amplitude difference)
+threshold = 100  # Adjust as needed for your signal scale
+
+# Boolean mask for overlap
+overlap_mask = np.abs(left_trimmed - right_trimmed) < threshold
+
+# Plotting
+plt.figure(figsize=(14, 5))
+plt.plot(x, left_trimmed, label='Left Mic', color='blue', alpha=0.5)
+plt.plot(x, right_trimmed, label='Right Mic', color='red', alpha=0.5)
+
+# Highlight overlapping samples
+plt.plot(x[overlap_mask], left_trimmed[overlap_mask], 'o', color='purple', markersize=2, label='Overlap')
+
+plt.title("Left and Right Microphone Signals with Overlap Highlighted")
+plt.xlabel("Sample Index")
+plt.ylabel("Amplitude")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+```
+Sample output:
+
+![Code 4b](https://github.com/user-attachments/assets/79aa066c-9667-4fc7-ad45-6eac9c6d1755)
 
 ## Code 5 - Final Results
 - This code will tell you which mic is closer
@@ -259,6 +314,13 @@ print(f"Estimated distance difference: {abs(distance_diff_cm)} cm")
 - Ensure that mic_distance_cm is the correct spacing between the mics
 - Make sure that manual_offset_samples is updated. In this code the sign needs to be flipped
   - So if the correction factor is 257 meaning the left mic recording is lagging than the factor here needs to be negative 257
+
+Sample output:
+
+![Code 5](https://github.com/user-attachments/assets/fe3ac0d7-2276-4d27-aeaf-c7a39ded54b4)
+
+**THIS CODE SHOULD IS AVAILABLE UNDER Localization_Final_Iteration**
+
 ## Other Cool Code
 ### Sound Classification with YAMNet
 Need:
