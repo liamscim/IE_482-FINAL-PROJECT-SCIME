@@ -320,7 +320,8 @@ Sample output:
 
 ![Code 5](https://github.com/user-attachments/assets/fe3ac0d7-2276-4d27-aeaf-c7a39ded54b4)
 
-**THIS CODE SHOULD IS AVAILABLE UNDER Localization_Final_Iteration**
+**THIS CODE SHOULD IS AVAILABLE UNDER Localization_Final_Iteration, A version that continouly outputs these reults is available under Localization_Final_Iteration_Live**
+- The live version of the code just doesn't seem to be as accurate, still uses correction factor
 
 ## Other Cool Code
 ### Sound Classification with YAMNet
