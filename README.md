@@ -141,6 +141,7 @@ print("Saved mic_left.wav and mic_right.wav")
 - This code is used to ensure that the sound clips from each mic are in line
   - This is very important since we are using TDOA from the peak amplitudes to determine which mic is closer and the distance from the sound source its critical that the records are aligned exactly
 - Record a single clap from the middle of the mics (code 2), the closer to directly center the better
+
 Then run this code:
 ```
 #Determine correction factor
