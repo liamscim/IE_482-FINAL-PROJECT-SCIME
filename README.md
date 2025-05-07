@@ -3,7 +3,7 @@ Sound Localization with 2 microphones
 
 # Motivation / Overview of your project.
 - Using 2 USB microphones identify which mic is closer to the sound and approximate location of sound
-  - Only the distance can be determined using the two mic configuration
+  - Only the distance can be determined using the two-mic configuration
 - Could be used for locating people after a natural disaster
 # Demonstration
 [![Watch the video](https://i.sstatic.net/Vp2cE.png)](https://ubuffalo-my.sharepoint.com/:v:/g/personal/liamscim_buffalo_edu/Ea9lNS5nJ91HnZax4GvgdfMBv3CYnCt4u14b-YSAlq9Zhw?e=xUvaNd)
@@ -84,11 +84,12 @@ for mic_index in [1, 2]:  # Replace with actual device indices
 
 p.terminate()
 ```
-- Run this and speak directly into one mic only, the mic you were speaking into should have the louder amplitude which will allow you to verify if the indeices for the mics are correct
+- Run this and speak directly into one mic only, the mic you were speaking into should have the louder amplitude which will allow you to verify if the indices for the mics are correct
 
 Sample output:
 
 ![Code 1b output](https://github.com/user-attachments/assets/276ce6dc-2009-4b14-945a-7bdb0e3638fe)
+
 You can see here I was blowing into the left mic and therefore the left mic is the USB mic in index 1.
 
 ## Code 2 - Sound Recording
@@ -138,12 +139,12 @@ print("Saved mic_left.wav and mic_right.wav")
 
 ## Code 3 - Correction Factor
 - This code is used to ensure that the sound clips from each mic are in line
-  - This is very important as since we are using TDOA from the peak amplitudes to determine which mic is closer and the distance from the sound source its critcal that the records are aligned exactly
+  - This is very important since we are using TDOA from the peak amplitudes to determine which mic is closer and the distance from the sound source its critical that the records are aligned exactly
 - Record a single clap from the middle of the mics (code 2), the closer to directly center the better
 ```
 #Determine correction factor
 #To do so clap directly between the mics then run this chunk of code
-#Manually add correlation factor into the rest of the code (this way it wont needed to be changed every time you run the code)
+#Manually add correlation factor into the rest of the code (this way it wont need to be changed every time you run the code)
 
 import numpy as np
 import soundfile as sf
@@ -174,7 +175,7 @@ print(f"Estimated correction factor (manual_offset_samples) = {offset} samples")
 #Negative value means right lags behind left
 ```
 - Run this code and it will tell you the correction factor
-  - Postive factor means the left mic is lagging, negative means that the right mic is lagging
+  - Positive factor means the left mic is lagging, negative means that the right mic is lagging
   - Mine correction factor was consistently around ~257 meaning the left mic was lagging
 - `NOTE` Even when mics are flipped the left seemed to still be delayed. This delay could be from the code itself or even my laptop but it doesn't seem to be due to the mics themselves.
 
@@ -230,8 +231,8 @@ plt.show()
 print(f"Left Peak Index: {left_peak_corr}")
 print(f"Right Peak Index: {right_peak_corr}")
 ```
-- The following code will plot the amplitude from each mic on two seperate plots
-- Make sure the manual_offset_samples is updated with the proper correction factor, use 0 if you dont want a correction factor
+- The following code will plot the amplitude from each mic on two separate plots
+- Make sure the manual_offset_samples is updated with the proper correction factor, use 0 if you don’t want a correction factor
 - Although the correction factor is something you will manually change you still need to run that code (code 3) for the plots to be updated
 Sample output:
 
@@ -312,7 +313,7 @@ print(f"Sound is closer to the {closer_mic} mic.")
 print(f"Estimated distance difference: {abs(distance_diff_cm)} cm")
 ```
 - Ensure that mic_distance_cm is the correct spacing between the mics
-- This distance is only accurate if the sound is inbetween the two mics as techinally if its outside the two mics the model should return the distance between the 2 mics (the width of laptop, in my case 37.465cm)
+- This distance is only accurate if the sound is in between the two mics as technically if its outside the two mics the model should return the distance between the 2 mics (the width of laptop, in my case 37.465cm)
 - Make sure that manual_offset_samples is updated. In this code the sign needs to be flipped
   - So if the correction factor is 257 meaning the left mic recording is lagging than the factor here needs to be negative 257
 
@@ -320,9 +321,9 @@ Sample output:
 
 ![Code 5](https://github.com/user-attachments/assets/fe3ac0d7-2276-4d27-aeaf-c7a39ded54b4)
 
-**This code is available under Localization_Final_Iteration, A version that continouly outputs these reults is available under Localization_Final_Iteration_Live**
+**This code is available under Localization_Final_Iteration, A version that continuously outputs these results is available under Localization_Final_Iteration_Live**
 - The live version of the code just doesn't seem to be as accurate, still uses correction factor
-- The live version is also just hard to keep up with as its outputing alot of data fast
+- The live version is also just hard to keep up with as its outputting a lot of data fast
 
 ## Other Cool Code
 ### Sound Classification with YAMNet
@@ -400,10 +401,10 @@ stop_classification()
 - This will predict what the noise is, this was cool and actually quite accurate but slows down the localization code so thats why it wasn't integrated
 
 ![Sounds](https://github.com/user-attachments/assets/34d816bb-c5c8-42ca-8504-deaf814a8581)
-- Will predict was sound is continously every 3 seconds until the stop command is ran
+- Will predict was sound is continuously every 3 seconds until the stop command is ran
 # Note
 ## Angle Estimation:
-Angle estimation wont work with this model, this is because the model is assuming the distance is in the same horizonal line that the mics are on. The orginal idea was to draw two circles with the radius equal to how far the mic is away from the sound but say the closest mic is 7cm from the source of the sound, the farther mic is going to be 7 cm + the distance between the mics (the width of my laptop) which is 37.465. This means when the circles are put around the mics they will only ever intersect at one point that lies on the horizontal line connecting the mics. Below was the graph i was going to make pointing the 2 possible points of intersections of the circles. But as you can see it will only ever pick one point.
+Angle estimation wont work with this model, this is because the model is assuming the distance is in the same horizonal line that the mics are on. The original idea was to draw two circles with the radius equal to how far the mic is away from the sound but say the closest mic is 7cm from the source of the sound, the farther mic is going to be 7 cm + the distance between the mics (the width of my laptop) which is 37.465. This means when the circles are put around the mics they will only ever intersect at one point that lies on the horizontal line connecting the mics. Below was the graph I was going to make pointing the 2 possible points of intersections of the circles. But as you can see it will only ever pick one point.
 
 ### Example image
 ![Angle Graph](https://github.com/user-attachments/assets/b6877956-8665-4224-8a84-5687a93089c5)
@@ -416,7 +417,7 @@ Not super helpful but cool
 - [Acoustic Localization](https://opensoundscape.org/en/latest/tutorials/acoustic_localization.html)
   - Could not get the localization package within opensoundscape to import
 # Future Work
-- Ideally I would like the code to be able to identify a rotation factor and distance that way we could do something like track the sound
-- Recording that is always updating the location of the sound would be cool, would make this more practical
-- Having someway where the correction factor can be configured automatically would be cool and make this code easier to run
+- Ideally, I would like the code to be able to identify a rotation factor and distance that way we could do something like track the sound
+- Having some way where the correction factor can be configured automatically would be cool and make this code easier to run
+- Have way to estimate actually distance from sound using 2 mics
 - Implement 3rd mic for easier localization
