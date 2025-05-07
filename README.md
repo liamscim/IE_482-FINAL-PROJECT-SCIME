@@ -322,6 +322,7 @@ Sample output:
 
 **This code is available under Localization_Final_Iteration, A version that continouly outputs these reults is available under Localization_Final_Iteration_Live**
 - The live version of the code just doesn't seem to be as accurate, still uses correction factor
+- The live version is also just hard to keep up with as its outputing alot of data fast
 
 ## Other Cool Code
 ### Sound Classification with YAMNet
