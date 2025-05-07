@@ -182,7 +182,7 @@ Sample output:
 
 ![Code 3 output](https://github.com/user-attachments/assets/9de1b805-3fb5-4521-aa71-c398a506fc34)
 
-## Code 4 - Plot from each mic
+## Code 4 - Plots from each mic
 ```
 import matplotlib.pyplot as plt
 
