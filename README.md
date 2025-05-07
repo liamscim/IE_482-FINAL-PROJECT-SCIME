@@ -391,7 +391,7 @@ def stop_classification():
     classify_thread.join()
     print("Stopped classification.")
 ```
-To stop run:
+To stop code:
 ```
 stop_classification()
 ```
