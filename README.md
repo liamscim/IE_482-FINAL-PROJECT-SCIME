@@ -312,6 +312,7 @@ print(f"Sound is closer to the {closer_mic} mic.")
 print(f"Estimated distance difference: {abs(distance_diff_cm)} cm")
 ```
 - Ensure that mic_distance_cm is the correct spacing between the mics
+- This distance is only accurate if the sound is inbetween the two mics as techinally if its outside the two mics the model should return the distance between the 2 mics (the width of laptop, in my case 37.465cm)
 - Make sure that manual_offset_samples is updated. In this code the sign needs to be flipped
   - So if the correction factor is 257 meaning the left mic recording is lagging than the factor here needs to be negative 257
 
@@ -395,6 +396,7 @@ To stop run:
 stop_classification()
 ```
 - This will predict what the noise is, this was cool and actually quite accurate but slows down the localization code so thats why it wasn't integrated
+
 ![Sounds](https://github.com/user-attachments/assets/34d816bb-c5c8-42ca-8504-deaf814a8581)
 - Will predict was sound is continously every 3 seconds until the stop command is ran
 # Note
