@@ -3,8 +3,8 @@ Sound Localization with 2 microphones
 
 # Motivation / Overview of your project.
 - Using 2 USB microphones identify which mic is closer to the sound and approximate location of sound
-  - Only the distance can be determined using the two-mic configuration
 - Could be used for locating people after a natural disaster
+- Exploratory analysis to see how localization can be done (if possible) with only 2 mics
 # Demonstration
 [![Watch the video](https://i.sstatic.net/Vp2cE.png)](https://ubuffalo-my.sharepoint.com/:v:/g/personal/liamscim_buffalo_edu/Ea9lNS5nJ91HnZax4GvgdfMBv3CYnCt4u14b-YSAlq9Zhw?e=xUvaNd)
 - Download for this is also available in this repo, this should work however!
