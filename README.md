@@ -407,6 +407,8 @@ Angle estimation wont work with this model, this is because the model is assumin
 ![Angle Graph](https://github.com/user-attachments/assets/b6877956-8665-4224-8a84-5687a93089c5)
 
 # References
+YAMNet
+- [Sound Classification](https://www.tensorflow.org/hub/tutorials/yamnet)
 Not super helpful but cool
 - [Acoustic Localization](https://opensoundscape.org/en/latest/tutorials/acoustic_localization.html)
   - Could not get the localization package within opensoundscape to import
@@ -414,4 +416,4 @@ Not super helpful but cool
 - Ideally I would like the code to be able to identify a rotation factor and distance that way we could do something like track the sound
 - Recording that is always updating the location of the sound would be cool, would make this more practical
 - Having someway where the correction factor can be configured automatically would be cool and make this code easier to run
-- Implement 3rd mic for easier localization implementation
+- Implement 3rd mic for easier localization
