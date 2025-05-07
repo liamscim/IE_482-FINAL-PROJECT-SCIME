@@ -259,6 +259,89 @@ print(f"Estimated distance difference: {abs(distance_diff_cm)} cm")
 - Ensure that mic_distance_cm is the correct spacing between the mics
 - Make sure that manual_offset_samples is updated. In this code the sign needs to be flipped
   - So if the correction factor is 257 meaning the left mic recording is lagging than the factor here needs to be negative 257
+## Other Cool Code
+### Sound Classification with YAMNet
+Need:
+```
+pip install sounddevice tensorflow tensorflow-hub numpy scipy
+```
+Then run the following code:
+```
+import numpy as np
+import tensorflow as tf
+import tensorflow_hub as hub
+import sounddevice as sd
+import csv
+import time
+import threading
+
+# Load YAMNet model
+model = hub.load('https://tfhub.dev/google/yamnet/1')
+
+# Load class names
+def class_names_from_csv(class_map_csv_path):
+    class_names = []
+    with tf.io.gfile.GFile(class_map_csv_path) as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            class_names.append(row['display_name'])
+    return class_names
+
+class_map_path = model.class_map_path().numpy()
+class_names = class_names_from_csv(class_map_path)
+
+# Set recording parameters
+duration = 2  # seconds
+fs = 16000  # Hz
+
+# Control flag
+keep_running = True
+
+# Classification loop
+def classify_loop():
+    global keep_running
+    print("Starting classification loop...")
+    while keep_running:
+        print("\nRecording...")
+        audio_data = sd.rec(int(duration * fs), samplerate=fs, channels=1, dtype='float32')
+        sd.wait()
+
+        waveform = tf.reshape(audio_data, [-1])
+        scores, embeddings, spectrogram = model(waveform)
+
+        mean_scores = tf.reduce_mean(scores, axis=0)
+        top_class = tf.argmax(mean_scores).numpy()
+
+        print("Predicted class:", class_names[top_class])
+        time.sleep(0.5)
+
+    print("Classification loop stopped.")
+
+# Start the thread
+classify_thread = threading.Thread(target=classify_loop)
+classify_thread.start()
+
+# Stop function you can call manually
+def stop_classification():
+    global keep_running
+    keep_running = False
+    classify_thread.join()
+    print("Stopped classification.")
+```
+To stop run:
+```
+stop_classification()
+```
+- This will predict what the noise is, this was cool and actually quite accurate but slows down the localization code so thats why it wasn't integrated
+![Sounds](https://github.com/user-attachments/assets/34d816bb-c5c8-42ca-8504-deaf814a8581)
+- Will predict was sound is continously every 3 seconds until the stop command is ran
+# Note
+## Angle Estimation:
+Angle estimation wont work with this model, this is because the model is assuming the distance is in the same horizonal line that the mics are on. The orginal idea was to draw two circles with the radius equal to how far the mic is away from the sound but say the closest mic is 7cm from the source of the sound, the farther mic is going to be 7 cm + the distance between the mics (the width of my laptop) which is 37.465. This means when the circles are put around the mics they will only ever intersect at one point that lies on the horizontal line connecting the mics. Below was the graph i was going to make pointing the 2 possible points of intersections of the circles. But as you can see it will only ever pick one point.
+
+### Example image
+![Angle Graph](https://github.com/user-attachments/assets/b6877956-8665-4224-8a84-5687a93089c5)
+
 # References
 Not super helpful but cool
 - [Acoustic Localization](https://opensoundscape.org/en/latest/tutorials/acoustic_localization.html)
