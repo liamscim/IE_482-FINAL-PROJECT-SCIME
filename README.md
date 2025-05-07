@@ -7,7 +7,7 @@ Sound Localization with 2 microphones
 - Could be used for locating people after a natural disaster
 # Demonstration
 [![Watch the video](https://i.sstatic.net/Vp2cE.png)](https://ubuffalo-my.sharepoint.com/:v:/g/personal/liamscim_buffalo_edu/Ea9lNS5nJ91HnZax4GvgdfMBv3CYnCt4u14b-YSAlq9Zhw?e=xUvaNd)
-- Short Demo video available for download where the code is just ran
+- Download for this is also available in this repo, this should work however!
 # Installation Instructions
 `NOTE` This has only been tested and utilized on windows 11
 
